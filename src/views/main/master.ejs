@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Awesome Chat</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="images/logo_favicon/chat.png" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="lib/AlertifyJS/build/css/alertify.css" />
+    <link rel="stylesheet" href="lib/emojionearea/dist/emojionearea.min.css" />
+    <link rel="stylesheet" href="lib/photoset-grid/css/colorbox.css" />
+
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body onload="spinLoaded()">
+    <!--Icon loader-->
+    <div class="master-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <input type="hidden" id="ice-server-list" value="<%= iceServerList %>">
+    <%- include('alert/index'); %>
+    <%- include('navbar/index'); %>
+    <%- content %>
+
+    <!--Libraries-->
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="lib/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="lib/AlertifyJS/build/alertify.js"></script>
+    <script src="lib/moment/min/moment.min.js"></script>
+    <script src="lib/moment/min/moment-with-locales.min.js"></script>
+    <script src="lib/emojionearea/dist/emojionearea.min.js"></script>
+    <script src="lib/peerjs/peer.min.js"></script>
+    <script src="lib/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="lib/photoset-grid/jquery.photoset-grid.min.js"></script>
+    <script src="lib/jquery-colorbox/jquery.colorbox-min.js"></script>
+
+
+    <!-- My js-->
+    <script src="js/mainConfig.js"></script>
+    <script src="js/updateUser.js"></script>
+
+    <script src="js/calculateNotiContact.js"></script>
+    <script src="js/calculateNotification.js"></script>
+    <script src="js/addContact.js"></script>
+    <script src="js/removeContact.js"></script>
+    <script src="js/removeRequestContactSent.js"></script>
+    <script src="js/removeRequestContactReceived.js"></script>
+    <script src="js/findUserContact.js"></script>
+    <script src="js/readMoreContacts.js"></script>
+    <script src="js/approveRequestContactReceive.js"></script>
+
+    <script src="js/readMoreNoti.js"></script>
+    <script src="js/markNotiAsRead.js"></script>
+    <script src="js/textAndEmojiChat.js"></script>
+    <script src="js/typingOnOff.js"></script>
+    <script src="js/imageChat.js"></script>
+    <script src="js/attachmentChat.js"></script>
+    <script src="js/videoChat.js"></script>
+    <script src="js/userOnlineOffline.js"></script>
+    <script src="js/groupChat.js"></script>
+
+    <%- include('contacts/contactsModal'); %>
+
+    <%- include('streaming/streamModal'); %>
+
+    <%- include('images/imagesModal') %>
+
+
+    <%- include('attachs/attachsModal'); %>
+
+    <%- include('users/profileModal'); %>
+
+    <%- include('groupChat/groupChatModal'); %>
+
+    <%- include('notification/notificationModal'); %>
+
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+<div class="modal fade" id="contactsModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Contact Management</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#find-user">Search friends</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" id="link-contacts" href="#contacts">
+                            Friends
+
+                            <% if(countAllcontacts > 0) { %>
+                            <span class="show-number-contacts count-contacts">
+                                (<em><%= countAllcontacts %></em>)
+                            </span>
+                            <% } else { %>
+                            <span class="show-number-contacts count-contacts">
+                            </span>
+                            <% } %>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" id="link-request-contact-sent" href="#request-contact-sent">
+                            Pending Requests
+
+                            <% if(countAllcontactsSent > 0) { %>
+                            <span class="show-number-contacts count-request-contact-sent">
+                                (<em><%= countAllcontactsSent %></em>)
+                            </span>
+                            <% } else { %>
+                            <span class="show-number-contacts count-request-contact-sent">
+                            </span>
+                            <% }  %>
+
+                        </a>
+
+                    </li>
+                    <li>
+                        <a data-toggle="tab" id="link-request-contact-received" href="#request-contact-received">
+                            Friend Requests
+                            <% if(countAllcontactsReceive > 0) { %>
+                            <span class="show-number-contacts count-request-contact-received">
+                                (<em><%= countAllcontactsReceive %></em>)
+                            </span>
+                            <% } else { %>
+                            <span class="show-number-contacts count-request-contact-received">
+                            </span>
+                            <% } %>
+
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="find-user" class="tab-pane fade in active">
+                        <div class="find-user-top">
+                            <div class="input-group col-md-12">
+                                <input type="text" id="input-find-users-contact" class="form-control"
+                                    placeholder="E-mail or username..." />
+                                <span class="input-group-btn">
+                                    <button id="btn-find-users-contact" class="btn btn-lg" type="button">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="find-user-bottom">
+                            <ul class="contactList">
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="contacts" class="tab-pane fade">
+                        <div class="find-user-bottom">
+                            <ul class="contactList">
+                                <% contacts.forEach(function(user) { %>
+                                <li class="_contactList" data-uid="<%= user._id %>">
+                                    <div class="contactPanel">
+                                        <div class="user-avatar">
+                                            <img src="images/users/<%= user.avatar %>" alt="" />
+                                        </div>
+                                        <div class="user-name">
+                                            <p>
+                                                <%= user.username %>
+                                            </p>
+                                        </div>
+                                        <br />
+                                        <div class="user-address">
+                                            <span>&nbsp <%= user.address %></span>
+                                        </div>
+                                        <div class="user-talk" data-uid="<%= user._id %>">
+                                            Message
+                                        </div>
+                                        <div class="user-remove-contact action-danger" data-uid="<%= user._id %>">
+                                            Delete contact
+                                        </div>
+                                    </div>
+                                </li>
+                                <% }) %>
+                            </ul>
+                            <% if(contacts.length > 0) { %>
+                            <div class="read-more-contacts">
+                                <a href="jvasscript:void(0)" id="modal-read-more-contacts">
+                                    <strong>Read more</strong>
+                                </a>
+                                <div class="read-more-loading">
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div id="request-contact-sent" class="tab-pane fade">
+                        <div class="find-user-bottom">
+                            <ul class="contactList">
+                                <% contactsSent.forEach(function(user) { %>
+                                <li class="_contactList" data-uid="<%= user._id %>">
+                                    <div class="contactPanel">
+                                        <div class="user-avatar">
+                                            <img src="images/users/<%= user.avatar %>" alt="" />
+                                        </div>
+                                        <div class="user-name">
+                                            <p>
+                                                <%= user.username %>
+                                            </p>
+                                        </div>
+                                        <br />
+                                        <div class="user-address">
+                                            <span>&nbsp <%= user.address %></span>
+                                        </div>
+                                        <div class="user-remove-request-contact action-danger show-request-contact-sent"
+                                            data-uid="<%= user._id %>">
+                                            Remove request
+                                        </div>
+                                    </div>
+                                </li>
+                                <% }) %>
+                            </ul>
+                            <% if(contactsSent.length > 0) { %>
+                            <div class="read-more-contacts-send">
+                                <a href="jvasscript:void(0)" id="modal-read-more-contacts-send">
+                                    <strong>Read more</strong>
+                                </a>
+                                <div class="read-more-loading">
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div id="request-contact-received" class="tab-pane fade">
+                        <div class="find-user-bottom">
+                            <ul class="contactList">
+                                <% contactsReceive.forEach(function(user) { %>
+                                <li class="_contactList" data-uid="<%= user._id %>">
+                                    <div class="contactPanel">
+                                        <div class="user-avatar">
+                                            <img src="images/users/<%= user.avatar %>" alt="" />
+                                        </div>
+                                        <div class="user-name">
+                                            <p>
+                                                <%= user.username %>
+                                            </p>
+                                        </div>
+                                        <br />
+                                        <div class="user-address">
+                                            <span>&nbsp <%= user.address %></span>
+                                        </div>
+                                        <div class="user-acccept-contact-received" data-uid="<%= user._id %>">
+                                            Accept
+                                        </div>
+                                        <div class="user-reject-request-contact-received action-danger"
+                                            data-uid="<%= user._id %>">
+                                            Reject
+                                        </div>
+                                    </div>
+                                </li>
+                                <% }) %>
+                            </ul>
+                            <% if(contactsReceive.length > 0) { %>
+                            <div class="read-more-contacts-receive">
+                                <a href="jvasscript:void(0)" id="modal-read-more-contact-receive">
+                                    <strong>Read more</strong>
+                                </a>
+                                <div class="read-more-loading">
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

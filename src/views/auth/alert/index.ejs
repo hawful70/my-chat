@@ -1,0 +1,25 @@
+<% if(errors) { %>
+<% errors.forEach((item) => { %>
+<script>
+    if (getActiveForm()) {
+        openLoginModal()
+    } else {
+        openRegisterModal()
+    }
+</script>
+<div class="alert alert-danger"><%- item %></div>
+<% });  %>
+<% } %>
+
+<% if(success) { %>
+<% success.forEach((item) => { %>
+<script>
+    if (getActiveForm()) {
+        openLoginModal()
+    } else {
+        openRegisterModal()
+    }
+</script>
+<div class="alert alert-success"><%- item %></div>
+<% });  %>
+<% } %>

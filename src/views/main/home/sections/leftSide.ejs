@@ -1,0 +1,188 @@
+<div class="col-sm-3 sidenav no-padding">
+    <div class="left">
+        <div class="top form-group">
+            <select class="form-control" id="select-type-chat">
+                <option data-target="#all-chat" value="all-chat">All conversation</option>
+                <option data-target="#user-chat" value="user-chat">Personal Chat</option>
+                <option data-target="#group-chat" value="group-chat">Group Chat</option>
+            </select>
+            <a href="#groupChatModal" class="create-group-chat" data-toggle="modal" title="Create group chat"></a>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="all-chat">
+                <ul class="people no-padding-start">
+                    <% allConversationWithMessages.forEach(function(conversation) { %>
+                    <% if(conversation.members) { %>
+                    <a href="javascript:void(0)" class="room-chat" data-target="#to_<%= conversation._id %>">
+                        <li class="person" data-chat="<%= conversation._id %>">
+                            <div class="left-avatar">
+                                <!-- <div class="dot"></div> -->
+                                <img src="images/users/group-avatar.png" alt="" />
+                            </div>
+                            <span class="name">
+                                <span class="group-chat-name">Group:
+                                    <% if(conversation.name.length > 15) { %>
+                                    <%= conversation.name.substr(0, 12) %><span>...</span>
+                                    <% } else { %>
+                                    <%= conversation.name %>
+                                    <% } %>
+                                </span>
+                            </span>
+                            <span class="time">
+                                <%= convertTimestamp(lastItemOfArray(conversation.messages).createdAt) %>
+                            </span>
+                            <span class="preview">
+                                <% if(lastItemOfArray(conversation.messages).messageType === "text") { %>
+                                <%= lastItemOfArray(conversation.messages).text %>
+                                <% } %>
+                                <% if(lastItemOfArray(conversation.messages).messageType === "image") { %>
+                                image...
+                                <% } %>
+                                <% if(lastItemOfArray(conversation.messages).messageType === "file") { %>
+                                attach files ....
+                                <% } %>
+                            </span>
+                        </li>
+                    </a>
+                    <% } else { %>
+                    <a href="javascript:void(0)" class="room-chat" data-target="#to_<%= conversation._id %>">
+                        <li class="person group-chat" data-chat="<%= conversation._id %>">
+                            <div class="left-avatar">
+                                <div class="dot"></div>
+                                <img src="images/users/<%= conversation.avatar %>" alt="" />
+                            </div>
+                            <span class="name">
+                                <% if(conversation.username.length > 15) { %>
+                                <%= conversation.username.substr(0, 12) %><span>...</span>
+                                <% } else { %>
+                                <%= conversation.username %>
+                                <% } %>
+                            </span>
+                            <span class="time">
+                                <%= convertTimestamp(lastItemOfArray(conversation.messages).createdAt) %>
+                            </span>
+                            <span class="preview">
+                                <% if(lastItemOfArray(conversation.messages).messageType === "text") { %>
+                                <%= lastItemOfArray(conversation.messages).text %>
+                                <% } %>
+                                <% if(lastItemOfArray(conversation.messages).messageType === "image") { %>
+                                image...
+                                <% } %>
+                                <% if(lastItemOfArray(conversation.messages).messageType === "file") { %>
+                                attach files ....
+                                <% } %>
+                            </span>
+                        </li>
+                    </a>
+                    <% } %>
+                    <% }) %>
+                </ul>
+
+                <div class="read-more-all-chat">
+                    <a href="jvasscript:void(0)" id="modal-read-more-all-chat">
+                        <strong>Read more</strong>
+                    </a>
+                    <div class="read-more-loading">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="user-chat">
+                <ul class="people no-padding-start">
+                    <% allConversationWithMessages.forEach(function(conversation) { %>
+                    <% if(!conversation.members) { %>
+                    <a href="javascript:void(0)" class="room-chat" data-target="#to_<%= conversation._id %>">
+                        <li class="person group-chat" data-chat="<%= conversation._id %>">
+                            <div class="left-avatar">
+                                <div class="dot"></div>
+                                <img src="images/users/<%= conversation.avatar %>" alt="" />
+                            </div>
+                            <span class="name">
+                                <% if(conversation.username.length > 15) { %>
+                                <%= conversation.username.substr(0, 12) %><span>...</span>
+                                <% } else { %>
+                                <%= conversation.username %>
+                                <% } %>
+                            </span>
+                            <span class="time">
+                                <%= convertTimestamp(lastItemOfArray(conversation.messages).createdAt) %>
+                            </span>
+                            <span class="preview">
+                                <% if(lastItemOfArray(conversation.messages).messageType === "text") { %>
+                                <%= lastItemOfArray(conversation.messages).text %>
+                                <% } %>
+                                <% if(lastItemOfArray(conversation.messages).messageType === "image") { %>
+                                image...
+                                <% } %>
+                                <% if(lastItemOfArray(conversation.messages).messageType === "file") { %>
+                                attach files ....
+                                <% } %>
+                            </span>
+                        </li>
+                    </a>
+                    <% } %>
+                    <% }) %>
+                </ul>
+                <div class="read-more-user-chat">
+                    <a href="jvasscript:void(0)" id="modal-read-more-user-chat">
+                        <strong>Read more</strong>
+                    </a>
+                    <div class="read-more-loading">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="group-chat">
+                <ul class="people no-padding-start">
+                    <% allConversationWithMessages.forEach(function(conversation) { %>
+                    <% if(conversation.members) { %>
+                    <a href="javascript:void(0)" class="room-chat" data-target="#to_<%= conversation._id %>">
+                        <li class="person" data-chat="<% conversation._id %>">
+                            <div class="left-avatar">
+                                <!-- <div class="dot"></div> -->
+                                <img src="images/users/group-avatar.png" alt="" />
+                            </div>
+                            <span class="name">
+                                <span class="group-chat-name">Group:
+                                    <% if(conversation.name.length > 15) { %>
+                                    <%= conversation.name.substr(0, 12) %><span>...</span>
+                                    <% } else { %>
+                                    <%= conversation.name %>
+                                    <% } %>
+                                </span>
+                            </span>
+                            <span class="time">
+                                <%= convertTimestamp(lastItemOfArray(conversation.messages).createdAt) %>
+                            </span>
+                            <span class="preview">
+                                <% if(lastItemOfArray(conversation.messages).messageType === "text") { %>
+                                <%= lastItemOfArray(conversation.messages).text %>
+                                <% } %>
+                                <% if(lastItemOfArray(conversation.messages).messageType === "image") { %>
+                                image...
+                                <% } %>
+                                <% if(lastItemOfArray(conversation.messages).messageType === "file") { %>
+                                attach files ....
+                                <% } %>
+                            </span>
+                        </li>
+                    </a>
+                    <% } %>
+                    <% }) %>
+
+                </ul>
+                <div class="read-more-group-chat">
+                    <a href="jvasscript:void(0)" id="modal-read-more-group-chat">
+                        <strong>Read more</strong>
+                    </a>
+                    <div class="read-more-loading">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
